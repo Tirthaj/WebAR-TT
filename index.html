@@ -8,8 +8,8 @@
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script>
-      // Function to update the message location and scale based on current device coordinates
-      function updateMessageLocationAndScale(latitude, longitude) {
+      // Function to update the message location based on provided latitude and longitude
+      function updateMessageLocation(latitude, longitude) {
         const message = document.getElementById('message');
         message.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
       }
@@ -18,7 +18,7 @@
       function handleLocationSuccess(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        updateMessageLocationAndScale(latitude, longitude);
+        updateMessageLocation(latitude, longitude);
       }
 
       // Function to handle error in retrieving device coordinates
@@ -32,9 +32,9 @@
       // Event listener to wait for the message entity to load
       AFRAME.registerComponent('message-loader', {
         init: function () {
-          const message = document.getElementById('message');
+          const message = this.el;
           message.addEventListener('loaded', function () {
-            const camera = document.getElementById('camera');
+            const camera = document.querySelector('[gps-camera]');
             const distance = camera.object3D.position.distanceTo(message.object3D.position);
             const scale = distance / 2; // Adjust this factor as needed
             message.setAttribute('scale', `${scale} ${scale} ${scale}`);
@@ -49,10 +49,10 @@
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     >
-      <a-entity id="camera" gps-camera rotation-reader></a-entity>
+      <a-entity gps-camera rotation-reader></a-entity>
       <a-text
         id="message"
-        value="This content will always face you test2."
+        value="This content will always face you."
         look-at="[gps-camera]"
         message-loader // Added message-loader component to wait for entity load
       ></a-text>
