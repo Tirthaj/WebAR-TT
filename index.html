@@ -8,17 +8,25 @@
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script>
-      // Function to update the message location based on current device coordinates
-      function updateMessageLocation(latitude, longitude) {
+      // Function to update the message location and scale based on current device coordinates
+      function updateMessageLocationAndScale(latitude, longitude) {
         const message = document.getElementById('message');
         message.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+        
+        // Calculate the distance between camera and text entity
+        const camera = document.getElementById('camera');
+        const distance = camera.object3D.position.distanceTo(message.object3D.position);
+        
+        // Set the scale based on the distance
+        const scale = distance / 10; // Adjust this factor as needed
+        message.setAttribute('scale', `${scale} ${scale} ${scale}`);
       }
 
       // Function to handle successful retrieval of device coordinates
       function handleLocationSuccess(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        updateMessageLocation(latitude, longitude);
+        updateMessageLocationAndScale(latitude, longitude);
       }
 
       // Function to handle error in retrieving device coordinates
@@ -36,13 +44,12 @@
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     >
+      <a-entity id="camera" gps-camera rotation-reader></a-entity>
       <a-text
         id="message"
-        value="This content will always face you test1."
+        value="This content will always face you."
         look-at="[gps-camera]"
-        scale="1000 1000 1000"
       ></a-text>
-      <a-camera gps-camera rotation-reader></a-camera>
     </a-scene>
   </body>
 </html>
