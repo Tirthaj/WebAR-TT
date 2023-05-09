@@ -18,7 +18,7 @@
         const distance = camera.object3D.position.distanceTo(message.object3D.position);
         
         // Set the scale based on the distance
-        const scale = distance / 10; // Adjust this factor as needed
+        const scale = distance / 2; // Adjust this factor as needed
         message.setAttribute('scale', `${scale} ${scale} ${scale}`);
       }
 
