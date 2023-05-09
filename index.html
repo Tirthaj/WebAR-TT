@@ -7,6 +7,7 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script type='text/javascript' src='basic.js'></script>
   </head>
 
   <body>
@@ -15,12 +16,10 @@
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     >
       <a-text
-        value="This content will always face you."
-        look-at="[gps-camera]"
-        scale="2000 2000 2000"
-        gps-entity-place="latitude: 38.8486; longitude: -77.3291;"
+        value="This content will always face you LMAO."
+        look-at="[gps-new-camera]"
       ></a-text>
-      <a-camera gps-camera rotation-reader> </a-camera>
+      <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
     </a-scene>
   </body>
 </html>
