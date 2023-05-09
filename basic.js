@@ -9,9 +9,9 @@ window.onload = () => {
             // Add a box to the north of the initial GPS position
             const entity = document.createElement("a-text");
             entity.setAttribute("scale", {
-                x: 20, 
-                y: 20,
-                z: 20
+                x: 1000, 
+                y: 1000,
+                z: 1000
             });
             entity.setAttribute('material', { color: 'red' } );
             entity.setAttribute('gps-new-entity-place', {
