@@ -1,3 +1,4 @@
+window.onload = () => {
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var coordinates = document.getElementById('coordinates');
@@ -9,3 +10,4 @@ if (navigator.geolocation) {
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
+}
